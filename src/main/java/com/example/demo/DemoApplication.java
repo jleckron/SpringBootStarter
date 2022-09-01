@@ -12,27 +12,28 @@ import com.example.inputreader.InputReader;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
+	
+	String commonColumnKey = "userId";
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 	
-	@Bean
+	/*@Bean
 	public GreetingService getGreetingService() {
 		return new DefaultGreetingService();
-	}
+	}*/
 	
 	@Override
 	public void run(String... args) throws Exception {
 		DefaultGreetingService greeter = new DefaultGreetingService();
 		greeter.greet();
-		//getGreetingService.greet();
 		
 		InputReader file1 = new InputReader("./Example CSV 1 - Sheet1.csv");
 		InputReader file2 = new InputReader("./Example CSV 2 - Sheet1.csv");
 		
-		DifferenceFinder df = new DifferenceFinder(file1, file2);
-		df.findChanges();
+		DifferenceFinder df = new DifferenceFinder(file1, file2, commonColumnKey);
+		df.findGroupings();
 	}
-
+ 
 }
