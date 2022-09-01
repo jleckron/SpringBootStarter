@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.service.DefaultGreetingService;
 import com.example.service.GreetingService;
+import com.example.inputreader.DifferenceFinder;
+import com.example.inputreader.InputReader;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
@@ -20,10 +22,17 @@ public class DemoApplication implements CommandLineRunner {
 		return new DefaultGreetingService();
 	}
 	
+	@Override
 	public void run(String... args) throws Exception {
-		DefaultGreetingService temp = new DefaultGreetingService();
-		temp.greet();
+		DefaultGreetingService greeter = new DefaultGreetingService();
+		greeter.greet();
 		//getGreetingService.greet();
+		
+		InputReader file1 = new InputReader("./Example CSV 1 - Sheet1.csv");
+		InputReader file2 = new InputReader("./Example CSV 2 - Sheet1.csv");
+		
+		DifferenceFinder df = new DifferenceFinder(file1, file2);
+		df.findChanges();
 	}
 
 }
